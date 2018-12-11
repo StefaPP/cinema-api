@@ -12,7 +12,7 @@ export class MovieController {
         res.send(err);
       }
       res.json(movie);
-    })
+    });
   }
 
   public getAllMovies(req: Request, res: Response) {
@@ -21,7 +21,7 @@ export class MovieController {
         res.send(err);
       }
       res.json(movies);
-    })
+    });
   }
 
   public getMovieById(req: Request, res: Response) {
@@ -30,7 +30,7 @@ export class MovieController {
         res.send(err);
       }
       res.json(movie);
-    })
+    });
   }
 
 }

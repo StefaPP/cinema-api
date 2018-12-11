@@ -6,12 +6,15 @@
     "sourceMap": true,
     "target": "es6",
     "outDir": "./dist",
-    "baseUrl": "./lib"
+    "baseUrl": "./lib",
+    "removeComments": false,
+    "watch": true
   },
   "include": [
     "lib/**/*.ts", "src/models/movie.ts", "src/controllers/movie.ts", "src/controllers/cinema.ts"
   ],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "coverage"
   ]
 }

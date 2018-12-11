@@ -12,7 +12,7 @@ export class CinemaController {
         res.send(err);
       }
       res.json(Cinema);
-    })
+    });
   }
 
   public getAllCinemas(req: Request, res: Response) {
@@ -21,7 +21,7 @@ export class CinemaController {
         res.send(err);
       }
       res.json(Cinemas);
-    })
+    });
   }
 
   public getCinemaById(req: Request, res: Response) {
@@ -30,7 +30,7 @@ export class CinemaController {
         res.send(err);
       }
       res.json(Cinema);
-    })
+    });
   }
 
 }
