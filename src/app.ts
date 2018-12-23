@@ -1,4 +1,5 @@
 require('dotenv/config');
+const expressValidator = require('express-validator');
 import * as express from 'express';
 import * as bodyParser from 'body-parser';
 import { Routes } from './routes/routes';
@@ -14,6 +15,7 @@ class App {
 
   constructor() {
     this.app = express();
+    this.app.use(expressValidator());
     this.config();
     this.routePrv.routes(this.app);
     this.mongoSetup();
@@ -31,7 +33,9 @@ class App {
       if (req.path.includes(process.env.API_BASE + 'login')) return next();
 
       return this.auth.authenticate((err, user, info) => {
-        if (err) { return next(err); }
+        if (err) {
+          return next(err);
+        }
         if (!user) {
           if (info.name === 'TokenExpiredError') {
             return res.status(401).json({ message: 'Your token has expired. Please generate a new one' });

@@ -13,6 +13,7 @@ const testUser = { 'email': 'testuser', 'password': 'mytestpass' };
 
 const createUser = async (): Promise<void> => {
   const UserModel = new User(testUser);
+  UserModel.password = User.hashPassword(testUser.password);
   await UserModel.save();
 };
 
