@@ -10,12 +10,10 @@ describe('# Auth', () => {
     await Role.deleteMany({});
   });
 
-  it('retrieves the token', () => {
-    return User.find({}).then(res => {
-      return login().then(res => {
-        res.status.should.equal(200);
-        res.body.token.should.not.be.empty;
-      });
+  it('logs in admin', () => {
+    return login('admin').then(res => {
+      res.status.should.equal(200);
+      res.body.token.should.not.be.empty;
     });
   });
 

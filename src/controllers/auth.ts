@@ -8,6 +8,16 @@ import { Role } from '../models/role';
 
 export class AuthController {
 
+  public isAdmin = async (req, res, next) => {
+    try {
+      if (req.user.role.type === 'admin') {
+        next();
+      }
+    } catch (err) {
+      res.status(403).json({ 'message': 'Invalid permission', 'errors': err });
+    }
+  }
+
   public initialize = () => {
     passport.use('jwt', this.getStrategy());
     return passport.initialize();
@@ -65,7 +75,7 @@ export class AuthController {
 
       user = new User({ email: req.body.email });
       user.password = User.hashPassword(req.body.password);
-      user.role = await Role.findOne({ type: 'member '});
+      user.role = await Role.findOne({ type: 'member ' });
       await user.save();
 
       res.status(200).json(this.genToken(user));
@@ -82,7 +92,7 @@ export class AuthController {
     };
 
     return new Strategy(params, (req, payload: any, done) => {
-      User.findOne({ 'email': payload.email }, (err, user) => {
+      User.findOne({ 'email': payload.email }).populate('role', 'type').exec((err, user) => {
         /* istanbul ignore next: passport response */
         if (err) {
           return done(err);
@@ -92,7 +102,7 @@ export class AuthController {
           return done(null, false, { message: 'The user in the token was not found' });
         }
 
-        return done(null, { _id: user._id, email: user.email });
+        return done(null, { _id: user._id, email: user.email, role: user.role[0] });
       });
     });
   }

@@ -48,7 +48,7 @@ export class Routes {
     app.post(endpoint + 'login', this.authController.login);
     app.post(endpoint + 'register', this.authController.register);
 
-    app.route(endpoint + 'movie').post(this.movieController.addMovie);
+    app.route(endpoint + 'movie').post(this.authController.isAdmin, this.movieController.addMovie);
     app.route(endpoint + 'movies').get(this.movieController.getAllMovies);
     app.route(endpoint + 'movies/:id').get(this.movieController.getMovieById);
 

@@ -10,7 +10,7 @@ class App {
 
   public app: express.Application;
   public routePrv: Routes = new Routes();
-  public mongoUrl: string = 'mongodb://127.0.0.1:27017/cincity';
+  public mongoUrl: string = `mongodb://127.0.0.1:27017/cincity${process.env.NODE_ENV === 'test' ? '_test' : ''}`;
   public auth: AuthController = new AuthController();
 
   constructor() {
@@ -44,6 +44,7 @@ class App {
           }
         }
         this.app.set('user', user);
+        req.user = user;
         return next();
       })(req, res, next);
     });
@@ -51,7 +52,7 @@ class App {
 
   private mongoSetup(): void {
     (<any>mongoose).Promise = require('bluebird');
-    mongoose.connect(this.mongoUrl, { useNewUrlParser: true });
+    mongoose.connect(this.mongoUrl, { useNewUrlParser: true, useCreateIndex: true });
   }
 
 }
