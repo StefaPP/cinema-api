@@ -20,7 +20,11 @@ export const schema: Schema = new Schema({
   password: {
     type: String,
     required: true
-  }
+  },
+  role: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Role'
+  }]
 }, { timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' } });
 
 schema.method('comparePassword', function (password: string): boolean {

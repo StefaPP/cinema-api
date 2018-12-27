@@ -15,5 +15,11 @@ export const CinemaSchema = new Schema({
   },
   founded: {
     type: Date
-  }
+  },
+  movies: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Movie'
+  }]
 });
+
+export const Cinema = mongoose.model('Cinema', CinemaSchema);

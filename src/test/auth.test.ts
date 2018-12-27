@@ -1,19 +1,32 @@
-import { request, login } from './common';
+import { request, login, JWT } from './common';
 import { User } from '../models/user';
+import { Role } from '../models/role';
 
 describe('# Auth', () => {
   const endpoint = process.env.API_BASE + 'login';
 
-  it('deletes all users', async () => {
+  before(async () => {
     await User.deleteMany({});
+    await Role.deleteMany({});
   });
 
-    it('retrieves the token', () => {
+  it('retrieves the token', () => {
     return User.find({}).then(res => {
       return login().then(res => {
         res.status.should.equal(200);
         res.body.token.should.not.be.empty;
       });
+    });
+  });
+
+  it('registers user and retrieves its token', () => {
+    return Role.create({ type: 'member' }).then(role => {
+      return request.post(process.env.API_BASE + 'register')
+        .send({ email: 'john@doe.com', password: 'password', passwordConfirmation: 'password' })
+        .expect(200)
+        .then(res => {
+          res.body.token.should.not.be.empty;
+        });
     });
   });
 
@@ -32,16 +45,5 @@ describe('# Auth', () => {
           .send({ 'email': 'anotheremail', 'password': 'mypass' })
           .expect(401);
       });
-  });
-
-  it('creates a movie', () => {
-    return request.post(process.env.API_BASE + 'movie')
-      .set('Authorization', 'JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1NDYxODYxNzIsImVtYWlsIjoidGVzdHVzZXIifQ.-ffo53YhysCQZhY7smKwbsUmC2e1L5f0gKkv7qYNUJ4')
-      .send({
-        title: 'New movie',
-        year: '2018',
-        time: 120
-      })
-      .expect(200);
   });
 });

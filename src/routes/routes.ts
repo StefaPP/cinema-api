@@ -46,6 +46,7 @@ export class Routes {
      *    }
     */
     app.post(endpoint + 'login', this.authController.login);
+    app.post(endpoint + 'register', this.authController.register);
 
     app.route(endpoint + 'movie').post(this.movieController.addMovie);
     app.route(endpoint + 'movies').get(this.movieController.getAllMovies);
@@ -54,7 +55,6 @@ export class Routes {
     app.route(endpoint + 'cinema').post(this.cinemaController.addCinema);
     app.route(endpoint + 'cinemas').get(this.cinemaController.getAllCinemas);
     app.route(endpoint + 'cinemas/:id').get(this.cinemaController.getCinemaById);
-
 
     app.route('/')
       .get((req: Request, res: Response) => {

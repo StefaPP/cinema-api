@@ -30,7 +30,7 @@ class App {
 
   private authenticate(): any {
     this.app.all(process.env.API_BASE + '*', (req, res, next) => {
-      if (req.path.includes(process.env.API_BASE + 'login')) return next();
+      if (req.path.includes('login') || req.path.includes('register')) return next();
 
       return this.auth.authenticate((err, user, info) => {
         if (err) {

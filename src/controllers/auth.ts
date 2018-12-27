@@ -4,6 +4,7 @@ import * as moment from 'moment';
 import { Strategy, ExtractJwt } from 'passport-jwt';
 import { IUserDocument as IUser } from '../interfaces/IUserDocument';
 import { User } from '../models/user';
+import { Role } from '../models/role';
 
 export class AuthController {
 
@@ -45,6 +46,31 @@ export class AuthController {
       res.status(200).json(this.genToken(user));
     } catch (err) {
       res.status(401).json({ 'message': 'Invalid credentials', 'errors': err });
+    }
+  }
+
+  public register = async (req, res) => {
+    try {
+      req.checkBody('email', 'Invalid email').notEmpty();
+      req.checkBody('password', 'Invalid password').notEmpty();
+      req.checkBody('passwordConfirmation', 'Passwords do not match').notEmpty();
+
+      let errors = req.validationErrors();
+      if (errors) throw errors;
+
+      let user = await User.findOne({ 'email': req.body.email }).exec();
+      if (user) {
+        throw ('User with this email already exists');
+      }
+
+      user = new User({ email: req.body.email });
+      user.password = User.hashPassword(req.body.password);
+      user.role = await Role.findOne({ type: 'member '});
+      await user.save();
+
+      res.status(200).json(this.genToken(user));
+    } catch (err) {
+      throw err;
     }
   }
 

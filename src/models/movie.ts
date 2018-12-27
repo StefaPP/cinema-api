@@ -11,6 +11,9 @@ export const MovieSchema = new Schema({
     type: String,
     required: 'Enter a last name'
   },
+  genres: {
+    type: Array,
+  },
   time: {
     type: Number,
     required: 'Enter length',
@@ -21,4 +24,10 @@ export const MovieSchema = new Schema({
   country: {
     type: Number
   },
+  cinemas: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Cinema'
+  }]
 });
+
+export const Movie = mongoose.model('Movie', MovieSchema);
