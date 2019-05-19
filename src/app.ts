@@ -11,7 +11,7 @@ class App {
 
   public app: express.Application;
   public routePrv: Routes = new Routes();
-  public mongoUrl: string = `mongodb://127.0.0.1:27017/cincity${process.env.NODE_ENV === 'test' ? '_test' : ''}`;
+  public mongoUrl: string = process.env.MONGO_URL || `mongodb://127.0.0.1:27017/cincity${process.env.NODE_ENV === 'test' ? '_test' : ''}`;
   public auth: AuthController = new AuthController();
 
   constructor() {
