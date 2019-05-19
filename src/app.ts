@@ -1,5 +1,6 @@
 require('dotenv/config');
 const expressValidator = require('express-validator');
+const cors = require('cors');
 import * as express from 'express';
 import * as bodyParser from 'body-parser';
 import { Routes } from './routes/routes';
@@ -25,13 +26,26 @@ class App {
     this.app.use(bodyParser.json());
     this.app.use(bodyParser.urlencoded({ extended: false }));
     this.app.use(this.auth.initialize());
+    this.app.use(cors());
     this.authenticate();
   }
 
   private authenticate(): any {
     this.app.all(process.env.API_BASE + '*', (req, res, next) => {
+      if (req.method === 'OPTIONS') {
+        const headers = {};
+        headers['Access-Control-Allow-Origin'] = '*';
+        headers['Access-Control-Allow-Methods'] = 'POST, GET, PUT, DELETE, OPTIONS';
+        headers['Access-Control-Allow-Credentials'] = false;
+        headers['Access-Control-Max-Age'] = '86400';
+        headers['Access-Control-Allow-Headers'] = 'X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept';
+        res.writeHead(200, headers);
+        res.end();
+      }
+
       if (req.path.includes('login') || req.path.includes('register')) return next();
 
+      // return next();
       return this.auth.authenticate((err, user, info) => {
         if (err) {
           return next(err);

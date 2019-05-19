@@ -8,16 +8,6 @@ import { Role } from '../models/role';
 
 export class AuthController {
 
-  public isAdmin = async (req, res, next) => {
-    try {
-      if (req.user.role.type === 'admin') {
-        next();
-      }
-    } catch (err) {
-      res.status(403).json({ 'message': 'Invalid permission', 'errors': err });
-    }
-  }
-
   public initialize = () => {
     passport.use('jwt', this.getStrategy());
     return passport.initialize();
@@ -26,7 +16,7 @@ export class AuthController {
   public authenticate = (callback) => passport.authenticate('jwt', { session: false, failWithError: true }, callback);
 
   private genToken = (user: IUser): Object => {
-    let expires = moment().utc().add({ days: 7 }).unix();
+    let expires = moment().utc().add({ days: 365 }).unix();
     let token = jwt.encode({
       exp: expires,
       email: user.email
@@ -84,10 +74,21 @@ export class AuthController {
     }
   }
 
+  public isAdmin = async (req, res, next) => {
+    try {
+      if (req.user.role.type === 'admin') {
+        next();
+      }
+    } catch (err) {
+      res.status(403).json({ 'message': 'Invalid permission', 'errors': err });
+    }
+  }
+
+
   private getStrategy = (): Strategy => {
     const params = {
       secretOrKey: process.env.JWT_SECRET,
-      jwtFromRequest: ExtractJwt.fromAuthHeader(),
+      jwtFromRequest: ExtractJwt.fromAuthHeaderWithScheme('JWT'),
       passReqToCallback: true
     };
 

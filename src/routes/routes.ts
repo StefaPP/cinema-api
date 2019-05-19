@@ -2,11 +2,13 @@ import { Request, Response } from 'express';
 import { MovieController } from '../controllers/movie';
 import { CinemaController } from '../controllers/cinema';
 import { AuthController } from '../controllers/auth';
+import { ReservationController } from '../controllers/reservation';
 
 export class Routes {
   public movieController: MovieController = new MovieController();
   public cinemaController: CinemaController = new CinemaController();
   public authController: AuthController = new AuthController();
+  public reservationController: ReservationController = new ReservationController;
 
   public routes(app): void {
 
@@ -45,6 +47,7 @@ export class Routes {
      *      "user": "57e12cab65c0c892381b8b44"
      *    }
     */
+    console.log(endpoint);
     app.post(endpoint + 'login', this.authController.login);
     app.post(endpoint + 'register', this.authController.register);
 
@@ -55,6 +58,8 @@ export class Routes {
     app.route(endpoint + 'cinema').post(this.cinemaController.addCinema);
     app.route(endpoint + 'cinemas').get(this.cinemaController.getAllCinemas);
     app.route(endpoint + 'cinemas/:id').get(this.cinemaController.getCinemaById);
+
+    app.route(endpoint + 'reserve').post(this.reservationController.makeReservation);
 
     app.route('/')
       .get((req: Request, res: Response) => {
