@@ -8,10 +8,10 @@
     "outDir": "./dist",
     "baseUrl": "./lib",
     "removeComments": false,
-    "watch": true
+    "watch": false
   },
   "include": [
-    "lib/**/*.ts", "src/models/movie.ts", "src/controllers/movie.ts", "src/controllers/cinema.ts"
+    "src/**/*.ts"
   ],
   "exclude": [
     "node_modules",
