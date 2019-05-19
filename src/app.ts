@@ -11,7 +11,7 @@ class App {
 
   public app: express.Application;
   public routePrv: Routes = new Routes();
-  public mongoUrl: string = process.env.MONGO_URL || `mongodb://127.0.0.1:27017/cincity${process.env.NODE_ENV === 'test' ? '_test' : ''}`;
+  // public mongoUrl: string = process.env.MONGO_URL || `mongodb://127.0.0.1:27017/cincity${process.env.NODE_ENV === 'test' ? '_test' : ''}`;
   public auth: AuthController = new AuthController();
 
   constructor() {
@@ -19,7 +19,7 @@ class App {
     this.app.use(expressValidator());
     this.config();
     this.routePrv.routes(this.app);
-    this.mongoSetup();
+    // this.mongoSetup();
   }
 
   private config(): void {
@@ -64,10 +64,10 @@ class App {
     });
   }
 
-  private mongoSetup(): void {
-    (<any>mongoose).Promise = require('bluebird');
-    mongoose.connect(this.mongoUrl, { useNewUrlParser: true, useCreateIndex: true });
-  }
+  // private mongoSetup(): void {
+  //   (<any>mongoose).Promise = require('bluebird');
+  //   mongoose.connect(this.mongoUrl, { useNewUrlParser: true, useCreateIndex: true });
+  // }
 
 }
 
