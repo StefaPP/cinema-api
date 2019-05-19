@@ -1,4 +1,4 @@
-require('dotenv/config');
+if (process.env.NODE_ENV !== 'production') require('dotenv').config();
 const expressValidator = require('express-validator');
 const cors = require('cors');
 import * as express from 'express';
