@@ -19,7 +19,7 @@ class App {
     this.app.use(expressValidator());
     this.config();
     this.routePrv.routes(this.app);
-    // this.mongoSetup();
+    this.mongoSetup();
   }
 
   private config(): void {
@@ -64,10 +64,10 @@ class App {
     });
   }
 
-  // private mongoSetup(): void {
-  //   (<any>mongoose).Promise = require('bluebird');
-  //   mongoose.connect(this.mongoUrl, { useNewUrlParser: true, useCreateIndex: true });
-  // }
+  private mongoSetup(): void {
+    (<any>mongoose).Promise = require('bluebird');
+    mongoose.connect(this.mongoUrl, { useNewUrlParser: true, useCreateIndex: true });
+  }
 
 }
 

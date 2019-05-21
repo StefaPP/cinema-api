@@ -51,6 +51,7 @@ export class AuthController {
 
   public register = async (req, res) => {
     try {
+      console.log('AAAAAAAAAAAAAA');
       req.checkBody('email', 'Invalid email').notEmpty();
       req.checkBody('password', 'Invalid password').notEmpty();
       req.checkBody('passwordConfirmation', 'Passwords do not match').notEmpty();
