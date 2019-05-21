@@ -47,7 +47,6 @@ export class Routes {
      *      "user": "57e12cab65c0c892381b8b44"
      *    }
     */
-    console.log(endpoint);
     app.post(endpoint + 'login', this.authController.login);
     app.post(endpoint + 'register', this.authController.register);
 

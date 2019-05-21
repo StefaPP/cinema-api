@@ -1,4 +1,3 @@
-if (process.env.NODE_ENV !== 'production') require('dotenv').config();
 const expressValidator = require('express-validator');
 const cors = require('cors');
 import * as express from 'express';
@@ -6,6 +5,8 @@ import * as bodyParser from 'body-parser';
 import { Routes } from './routes/routes';
 import * as mongoose from 'mongoose';
 import { AuthController } from './controllers/auth';
+
+if (process.env.NODE_ENV !== 'production') require('dotenv').config();
 
 class App {
 
@@ -17,9 +18,9 @@ class App {
   constructor() {
     this.app = express();
     this.app.use(expressValidator());
+    this.mongoSetup();
     this.config();
     this.routePrv.routes(this.app);
-    this.mongoSetup();
   }
 
   private config(): void {
