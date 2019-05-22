@@ -4,8 +4,8 @@
   "description": "API for cinemas",
   "main": "src/app.ts",
   "scripts": {
-    "build": "tsc",
     "tsc": "tsc",
+    "build": "tsc",
     "dev": "nodemon --exec ts-node -- src/server.ts",
     "start": "nodemon ./dist/server.js",
     "prod": "npm run build && npm run start",
