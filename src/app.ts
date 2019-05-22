@@ -33,7 +33,6 @@ class App {
 
   private authenticate(): any {
     this.app.all('*', (req, res, next) => {
-      console.log(req.path, req.method, req.body);
       // if (req.method === 'OPTIONS') {
       //   const headers = {};
       //   headers['Access-Control-Allow-Origin'] = '*';
