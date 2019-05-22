@@ -32,8 +32,8 @@ class App {
   }
 
   private authenticate(): any {
-    this.app.all(process.env.API_BASE + '*', (req, res, next) => {
-      console.log(req.method, req.body);
+    this.app.all('*', (req, res, next) => {
+      console.log(req.path, req.method, req.body);
       // if (req.method === 'OPTIONS') {
       //   const headers = {};
       //   headers['Access-Control-Allow-Origin'] = '*';
