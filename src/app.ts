@@ -33,16 +33,17 @@ class App {
 
   private authenticate(): any {
     this.app.all(process.env.API_BASE + '*', (req, res, next) => {
-      if (req.method === 'OPTIONS') {
-        const headers = {};
-        headers['Access-Control-Allow-Origin'] = '*';
-        headers['Access-Control-Allow-Methods'] = 'POST, GET, PUT, DELETE, OPTIONS';
-        headers['Access-Control-Allow-Credentials'] = false;
-        headers['Access-Control-Max-Age'] = '86400';
-        headers['Access-Control-Allow-Headers'] = 'X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept';
-        res.writeHead(200, headers);
-        res.end();
-      }
+      console.log(req.method, req.body);
+      // if (req.method === 'OPTIONS') {
+      //   const headers = {};
+      //   headers['Access-Control-Allow-Origin'] = '*';
+      //   headers['Access-Control-Allow-Methods'] = 'POST, GET, PUT, DELETE, OPTIONS';
+      //   headers['Access-Control-Allow-Credentials'] = false;
+      //   headers['Access-Control-Max-Age'] = '86400';
+      //   headers['Access-Control-Allow-Headers'] = 'X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept';
+      //   res.writeHead(200, headers);
+      //   res.end();
+      // }
 
       if (req.path.includes('login') || req.path.includes('register')) return next();
 
