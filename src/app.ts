@@ -28,7 +28,7 @@ class App {
     this.app.use(bodyParser.urlencoded({ extended: false }));
     this.app.use(this.auth.initialize());
     this.app.use(cors());
-    this.authenticate();
+    // this.authenticate();
   }
 
   private authenticate(): any {
