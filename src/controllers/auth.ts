@@ -103,7 +103,7 @@ export class AuthController {
           return done(null, false, { message: 'The user in the token was not found' });
         }
 
-        return done(null, { _id: user._id, email: user.email, role: user.role[0] });
+        return done(null, { _id: user._id, email: user.email, role: user.role && user.role[0] });
       });
     });
   }
