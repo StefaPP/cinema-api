@@ -22,7 +22,7 @@ describe('# Cinema', () => {
       auditorium: auditorium.id,
     }));
     seat = (await Seat.create(seats));
-    movie = await Movie.create({ title: 'Avengers: Infinity War', year: '2018', time: 120 });
+    movie = await Movie.create({ title: 'Avengers: Infinity War', releaseDate: '2018', time: 120 });
     screening = await Screening.create({ movie, auditorium, screeningTime: new Date() });
 
   });

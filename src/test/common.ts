@@ -45,7 +45,7 @@ const getUser = async (type): Promise<IUser> => {
   }
 };
 
-export const JWT = 'JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1NDYxODYxNzIsImVtYWlsIjoidGVzdHVzZXIifQ.-ffo53YhysCQZhY7smKwbsUmC2e1L5f0gKkv7qYNUJ4';
+export const JWT = 'JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1OTAyNTEyNzUsImVtYWlsIjoidGVzdHVzZXIifQ.d2XWvQcjB2ZKZX7Ao51fRXN7ltAwdpxd2GSX6Y9vW6U';
 
 export const login = async (type): Promise<any> => {
   let user = await getUser(type);

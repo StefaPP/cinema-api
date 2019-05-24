@@ -12,7 +12,10 @@ class App {
 
   public app: express.Application;
   public routePrv: Routes = new Routes();
-  public mongoUrl: string = process.env.MONGODB_URI || `mongodb://127.0.0.1:27017/cincity${process.env.NODE_ENV === 'test' ? '_test' : ''}`;
+  public mongoUrl: string = process.env.NODE_ENV !== 'production'
+    ? `mongodb://127.0.0.1:27017/cincity${process.env.NODE_ENV === 'test' ? '_test' : ''}`
+    : process.env.MONGODB_URI;
+
   public auth: AuthController = new AuthController();
 
   constructor() {
@@ -44,7 +47,7 @@ class App {
         res.end();
       }
 
-      if (req.path.includes('login') || req.path.includes('register')) return next();
+      if (['/login', '/register', '/populate'].includes(req.path)) return next();
 
       return this.auth.authenticate((err, user, info) => {
         if (err) {

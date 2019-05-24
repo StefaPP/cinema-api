@@ -27,6 +27,7 @@
     "bcryptjs": "^2.4.3",
     "bluebird": "^3.5.3",
     "body-parser": "^1.18.3",
+    "cors": "^2.8.5",
     "express": "^4.16.4",
     "express-validator": "^2.20.8",
     "jwt-simple": "^0.5.5",
@@ -36,7 +37,7 @@
     "passport": "^0.4.0",
     "passport-jwt": "^2.2.1",
     "react-router-dom": "^4.3.1",
-    "cors": "^2.8.5"
+    "superagent": "^5.0.5"
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.2",

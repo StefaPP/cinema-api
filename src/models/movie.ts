@@ -5,24 +5,29 @@ const Schema = mongoose.Schema;
 export const MovieSchema = new Schema({
   title: {
     type: String,
-    required: 'Enter a first name'
+    required: 'Enter title'
   },
-  year: {
+  releaseDate: {
     type: String,
-    required: 'Enter a last name'
+    required: 'Enter year'
   },
   genres: {
     type: Array,
   },
   time: {
     type: Number,
-    required: 'Enter length',
   },
   lang: {
     type: String
   },
   country: {
     type: Number
+  },
+  poster: {
+    type: String,
+  },
+  backdrop: {
+    type: String,
   },
   cinemas: [{
     type: Schema.Types.ObjectId,

@@ -10,13 +10,12 @@ export class ReservationController {
       if (err) {
         res.send(err);
       }
-      console.log(req.body.seat);
+
       const seatReserved = new SeatReserved({ seat: req.body.seat, reservation, screening: req.body.screening });
       seatReserved.save((err, seatReserved) => {
         if (err) {
           res.send(err);
         }
-        console.log(seatReserved);
         res.json(reservation);
       });
     });

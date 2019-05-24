@@ -11,10 +11,11 @@ describe('# Movies', () => {
     .send({
       title: 'Avengers: Infinity War',
       genres: ['Action', 'Comic', 'Sci-Fi'],
-      year: '2018',
+      releaseDate: '2018',
       time: 120
     })
-    .expect(200));
+    .expect(200)
+  )
 
   it('returns movie list', () => request.get(process.env.API_BASE + 'movies')
     .set('Authorization', JWT)
@@ -23,7 +24,7 @@ describe('# Movies', () => {
       res.body.length.should.be.eq(1);
       res.body[0].title.should.eq('Avengers: Infinity War');
       movie = res.body[0];
-    }));
+    }))
 
   it('returns specific movie', () => request.get(process.env.API_BASE + 'movies/' + movie._id)
     .set('Authorization', JWT)
