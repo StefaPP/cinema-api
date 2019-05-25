@@ -6,7 +6,7 @@ import { Screening } from '../models/screening';
 import { ReservationType } from '../models/reservation_type';
 import { Reservation } from '../models/reservation';
 
-describe('# Cinema', () => {
+describe('# Reservation', () => {
 
   let auditorium;
   let movie;
@@ -41,6 +41,13 @@ describe('# Cinema', () => {
         .expect(200)
         .then(res => {
           res.body.should.have.property('_id');
+          Reservation.findById(res.body._id)
+            .populate('screening')
+            .populate('reservedBy')
+            .populate('reservationType')
+            .exec(function (err, reservation) {
+              if (err) console.log(err);
+            });
         });
     });
   });

@@ -5,7 +5,7 @@ import { SeatReserved } from '../models/seat_reserved';
 export class ReservationController {
 
   public makeReservation(req: Request, res: Response) {
-    const reservation = new Reservation(req.body);
+    const reservation = new Reservation({ ...req.body, reservedBy: req.user });
     reservation.save((err, reservation) => {
       if (err) {
         res.send(err);
